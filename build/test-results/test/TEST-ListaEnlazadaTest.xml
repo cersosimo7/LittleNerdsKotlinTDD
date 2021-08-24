@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="ListaEnlazadaTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2021-08-10T23:00:06" hostname="DESKTOP-J8VSBNP" time="0.024">
+<testsuite name="ListaEnlazadaTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2021-08-24T16:25:16" hostname="ip-192-168-1-2.ec2.internal" time="0.037">
   <properties/>
-  <testcase name="sacarUltimo()" classname="ListaEnlazadaTest" time="0.024"/>
+  <testcase name="agregarElemento()" classname="ListaEnlazadaTest" time="0.033"/>
+  <testcase name="obtenerUltimo()" classname="ListaEnlazadaTest" time="0.001"/>
+  <testcase name="crearListaVacia()" classname="ListaEnlazadaTest" time="0.001"/>
+  <testcase name="sacarUltimo()" classname="ListaEnlazadaTest" time="0.001"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
