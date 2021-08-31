@@ -1,5 +1,6 @@
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.assertThrows
+import java.lang.IndexOutOfBoundsException
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
@@ -21,24 +22,14 @@ internal class ListaEnlazadaTest{
 
     @Test
     fun agregarElemento(){
-
         lista.agregar(5)
 
         assertEquals(true, lista.tamaño() == 1)
     }
 
-    @Test
-    fun obtenerUltimo(){
-
-        lista.agregar(5)
-        lista.agregar(4)
-
-        assertEquals(4, lista.obtenerUltimo())
-    }
 
     @Test
     fun alSacarElUltimoElementoLaListaSeReduce() {
-
         lista.agregar(5)
         lista.agregar(4)
 
@@ -65,10 +56,49 @@ internal class ListaEnlazadaTest{
     }
 
     @Test
+    fun obtenerPrimerElemento() {
+        lista.agregar(7)
+        lista.agregar(9)
+
+        val elemento = lista.primerElemento()
+
+        assertEquals(7, elemento)
+    }
+
+    @Test
     fun obtenerPorIndice() {
         lista.agregar(3)
-        val elemento = lista.obtener(0)
+        lista.agregar(5)
 
-        assertEquals(3, elemento)
+        val elemento = lista.obtener(1)
+
+        assertEquals(5, elemento)
+    }
+
+    @Test
+    fun obtenerUltimo(){
+        lista.agregar(5)
+        lista.agregar(4)
+
+        val elemento = lista.obtenerUltimo()
+
+        assertEquals(4, elemento)
+    }
+
+    @Test
+    fun obtenerDaUnErrorSiNoEncuentraElElemento() {
+        lista.agregar(5)
+        lista.agregar(4)
+
+        assertThrows<IndexOutOfBoundsException> {
+            lista.obtener(2)
+        }
+    }
+
+    @Test
+    fun obtenerDaUnErrorBuscandoEnUnaListaVacia() {
+        assertThrows<IndexOutOfBoundsException> {
+            lista.obtener(2)
+        }
     }
 }
