@@ -1,5 +1,6 @@
 class ListaEnlazada {
     lateinit var primero: Nodo
+    lateinit var ultimo: Nodo
     var numeroDeNodos: Int = 0
 
     class Nodo(val valor: Int) {
@@ -19,14 +20,15 @@ class ListaEnlazada {
     }
 
     fun agregar(valor: Int) {
-        if(estaVacia()) {
-            primero = Nodo(valor)
-        }
-        else {
+        if (estaVacia()) {
+            val nodo = Nodo(valor)
+            primero = nodo
+            ultimo = nodo
+        } else {
             val proximo = Nodo(valor)
-            primero.proximo = proximo
+            ultimo.proximo = proximo
+            ultimo = proximo
         }
-
         numeroDeNodos += 1
     }
 
@@ -39,7 +41,7 @@ class ListaEnlazada {
     }
 
     fun sacarUltimo() {
-        if(estaVacia())
+        if (estaVacia())
             throw NullPointerException()
 
         numeroDeNodos -= 1
@@ -50,15 +52,15 @@ class ListaEnlazada {
     }
 
     fun obtener(index: Int): Int {
-        if(!estaVacia()) {
+        if (!estaVacia()) {
             var i = 0
             var elemento = primero
 
             while (i < tamaño()) {
-                if(index == i)
+                if (index == i)
                     return elemento.valor
 
-                if(!elemento.tieneProximo())
+                if (!elemento.tieneProximo())
                     throw IndexOutOfBoundsException()
 
                 elemento = elemento.proximo
@@ -72,4 +74,27 @@ class ListaEnlazada {
     fun primerElemento(): Int {
         return 7
     }
+
+    fun agregarElementoEnPosicion(index: Int, valor: Int) {
+        var i = 0
+        var elemento = primero
+        lateinit var anterior: Nodo
+
+        while (i <= index) {
+            if (index == i) {
+                if (index == 0) {
+                    val nodo = Nodo(valor)
+                    primero = nodo
+                } else {
+                    val nodo = Nodo(valor, anterior.proximo)
+                    anterior.proximo = nodo
+                }
+            } else {
+                anterior = elemento
+                elemento = elemento.proximo
+            }
+            i++
+        }
+    }
 }
+

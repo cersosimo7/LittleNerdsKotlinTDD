@@ -1,12 +1,11 @@
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.assertThrows
-import java.lang.IndexOutOfBoundsException
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
-internal class ListaEnlazadaTest{
-    lateinit var lista : ListaEnlazada
+internal class ListaEnlazadaTest {
+    lateinit var lista: ListaEnlazada
 
     @BeforeEach
     internal fun setUp() {
@@ -15,18 +14,31 @@ internal class ListaEnlazadaTest{
     }
 
     @Test
-    fun crearListaVacia(){
+    fun crearListaVacia() {
 
         assertEquals(true, lista.estaVacia())
     }
 
     @Test
-    fun agregarElemento(){
+    fun agregarElemento() {
         lista.agregar(5)
 
         assertEquals(true, lista.tamaño() == 1)
     }
 
+    @Test
+    fun agregarElementoEnPosicion() {
+        lista.agregar(1)
+        lista.agregar(4)
+        lista.agregar(3)
+        lista.agregar(2)
+
+        lista.agregarElementoEnPosicion(2, 5)
+
+        val objetoEnPosicion = lista.obtener(2)
+
+        assertEquals(5, objetoEnPosicion)
+    }
 
     @Test
     fun alSacarElUltimoElementoLaListaSeReduce() {
@@ -76,7 +88,7 @@ internal class ListaEnlazadaTest{
     }
 
     @Test
-    fun obtenerUltimo(){
+    fun obtenerUltimo() {
         lista.agregar(5)
         lista.agregar(4)
 
