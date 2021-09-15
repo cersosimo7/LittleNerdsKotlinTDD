@@ -21,15 +21,32 @@ class ListaEnlazada {
 
     fun agregar(valor: Int) {
         if (estaVacia()) {
-            val nodo = Nodo(valor)
-            primero = nodo
-            ultimo = nodo
+            agregarPrimero(valor)
         } else {
-            val proximo = Nodo(valor)
-            ultimo.proximo = proximo
-            ultimo = proximo
+            agregarUltimo(valor)
         }
-        numeroDeNodos += 1
+    }
+
+    fun agregar(index: Int, valor: Int) {
+        if (index == 0 && estaVacia()) {
+            agregarPrimero(valor)
+            return
+        }
+
+        var i = 0
+        var elemento = primero
+        lateinit var anterior: Nodo
+
+        while (i <= index) {
+            if (index == i) {
+                val nodo = Nodo(valor, anterior.proximo)
+                anterior.proximo = nodo
+            } else {
+                anterior = elemento
+                elemento = elemento.proximo
+            }
+            i++
+        }
     }
 
     fun tamaño(): Int {
@@ -37,7 +54,7 @@ class ListaEnlazada {
     }
 
     fun obtenerUltimo(): Int {
-        return 4
+        return ultimo.valor
     }
 
     fun sacarUltimo() {
@@ -51,7 +68,7 @@ class ListaEnlazada {
         return true
     }
 
-    fun obtener(index: Int): Int {
+    fun obtenerPorIndice(index: Int): Int {
         if (!estaVacia()) {
             var i = 0
             var elemento = primero
@@ -71,30 +88,33 @@ class ListaEnlazada {
         throw IndexOutOfBoundsException()
     }
 
-    fun primerElemento(): Int {
-        return 7
+    fun obtenerPrimero(): Int {
+        return primero.valor
     }
 
-    fun agregarElementoEnPosicion(index: Int, valor: Int) {
-        var i = 0
-        var elemento = primero
-        lateinit var anterior: Nodo
 
-        while (i <= index) {
-            if (index == i) {
-                if (index == 0) {
-                    val nodo = Nodo(valor)
-                    primero = nodo
-                } else {
-                    val nodo = Nodo(valor, anterior.proximo)
-                    anterior.proximo = nodo
-                }
-            } else {
-                anterior = elemento
-                elemento = elemento.proximo
-            }
-            i++
+    fun agregarPrimero(valor: Int) {
+        val nodo = Nodo(valor)
+
+        if (estaVacia()) {
+            ultimo = nodo
         }
+
+        primero = nodo
+        numeroDeNodos++
+    }
+
+    fun agregarUltimo(valor: Int) {
+        val nodo = Nodo(valor)
+
+        if (estaVacia()) {
+            primero = nodo
+        } else {
+            ultimo.proximo = nodo
+        }
+
+        ultimo = nodo
+        numeroDeNodos++
     }
 }
 

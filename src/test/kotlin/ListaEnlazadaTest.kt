@@ -9,21 +9,27 @@ internal class ListaEnlazadaTest {
 
     @BeforeEach
     internal fun setUp() {
-
         lista = ListaEnlazada()
     }
 
     @Test
     fun crearListaVacia() {
-
-        assertEquals(true, lista.estaVacia())
+        assertTrue(lista.estaVacia())
     }
 
     @Test
     fun agregarElemento() {
         lista.agregar(5)
 
-        assertEquals(true, lista.tamaño() == 1)
+        assertTrue(lista.tamaño() == 1)
+    }
+
+    @Test
+    fun agregarPrimerElemento() {
+        lista.agregarPrimero(5)
+
+        assertTrue(lista.tamaño() == 1)
+        assertEquals(5, lista.obtenerPrimero())
     }
 
     @Test
@@ -33,12 +39,42 @@ internal class ListaEnlazadaTest {
         lista.agregar(3)
         lista.agregar(2)
 
-        lista.agregarElementoEnPosicion(2, 5)
+        lista.agregar(2, 5)
 
-        val objetoEnPosicion = lista.obtener(2)
+        val objetoEnPosicion = lista.obtenerPorIndice(2)
 
         assertEquals(5, objetoEnPosicion)
     }
+
+    @Test
+    fun agregarElementoEnPosicionCero() {
+        lista.agregar(0, 12)
+
+        val objetoEnPosicion = lista.obtenerPorIndice(0)
+
+        assertEquals(12, objetoEnPosicion)
+    }
+
+    @Test
+    fun agregarUltimoCuandoLaListaEstaVacia() {
+        lista.agregarUltimo(5)
+
+        assertEquals(5, lista.obtenerPrimero())
+        assertEquals(1, lista.tamaño())
+    }
+
+    @Test
+    fun agregarUltimoCuandoLaListaNoEstaVacia() {
+        lista.agregar(3)
+        lista.agregar(4)
+        lista.agregar(6)
+
+        lista.agregarUltimo(2)
+
+        assertEquals(2, lista.obtenerPorIndice(3))
+        assertEquals(2, lista.obtenerUltimo())
+    }
+
 
     @Test
     fun alSacarElUltimoElementoLaListaSeReduce() {
@@ -72,7 +108,7 @@ internal class ListaEnlazadaTest {
         lista.agregar(7)
         lista.agregar(9)
 
-        val elemento = lista.primerElemento()
+        val elemento = lista.obtenerPrimero()
 
         assertEquals(7, elemento)
     }
@@ -82,7 +118,7 @@ internal class ListaEnlazadaTest {
         lista.agregar(3)
         lista.agregar(5)
 
-        val elemento = lista.obtener(1)
+        val elemento = lista.obtenerPorIndice(1)
 
         assertEquals(5, elemento)
     }
@@ -103,14 +139,14 @@ internal class ListaEnlazadaTest {
         lista.agregar(4)
 
         assertThrows<IndexOutOfBoundsException> {
-            lista.obtener(2)
+            lista.obtenerPorIndice(2)
         }
     }
 
     @Test
     fun obtenerDaUnErrorBuscandoEnUnaListaVacia() {
         assertThrows<IndexOutOfBoundsException> {
-            lista.obtener(2)
+            lista.obtenerPorIndice(2)
         }
     }
 }
